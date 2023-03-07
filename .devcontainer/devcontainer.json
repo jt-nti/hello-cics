@@ -1,39 +1,51 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/java
 {
-	"name": "Java",
-	"image": "mcr.microsoft.com/devcontainers/java:0-11",
-
-	"features": {
-		"ghcr.io/devcontainers/features/java:1": {
-			"version": "none",
-			"installMaven": "true",
-			"installGradle": "true"
-		},
-		"ghcr.io/devcontainers/features/node:1": {
-			"nodeGypDependencies": true,
-			"version": "lts"
+	"name": "cicsdev",
+	"build": {
+		// Path is relataive to the devcontainer.json file.
+		"dockerfile": "Dockerfile",
+		"args": {
+			// Update the VARIANT arg to pick a Java version: 11, 17
+			// Append -bullseye or -buster to pin to an OS version.
+			// Use the -bullseye variants on local arm64/Apple Silicon.
+			"VARIANT": "11-bullseye",
+			// Options
+			"INSTALL_MAVEN": "true",
+			"INSTALL_GRADLE": "true",
+			"NODE_VERSION": "lts/*"
 		}
 	},
 
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"IBM.zopeneditor"
-			]
-		}
+	// TODO create a Zowe feature instead of using a Dockerfile? https://github.com/devcontainers/features
+	// "features": {
+	// },
+
+	"containerEnv": {
+		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
 	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// TODO create a Zowe feature? https://github.com/devcontainers/features
-	"postCreateCommand": "npm install -g prebuild-install && npm install -g @zowe/cli@zowe-v2-lts && zowe plugins install @zowe/cics-for-zowe-cli@zowe-v2-lts"
-
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"IBM.zopeneditor",
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-gradle"
+			]
+		}
+	},
 
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
 }

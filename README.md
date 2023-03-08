@@ -16,3 +16,7 @@ printf '\n' | gnome-keyring-daemon -r --unlock --components=secrets
 ```
 
 **TODO:** update the dev container to [unlock the Gnome keyring automatically](https://docs.zowe.org/stable/user-guide/cli-configure-scs-on-headless-linux-os/#unlocking-the-keyring-automatically).
+
+## Add some JCICSX code
+
+WIP!

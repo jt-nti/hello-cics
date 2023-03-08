@@ -21,24 +21,3 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [Optional] Uncomment this line to install global node packages.
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g @zowe/cli@zowe-v2-lts && zowe plugins install @zowe/cics-for-zowe-cli@zowe-v2-lts 2>&1" ; fi
-
-# TODO 
-# https://docs.zowe.org/stable/user-guide/cli-configure-scs-on-headless-linux-os
-
-# TBC interactive commands to unlock the Gnome keyring?
-# export $(dbus-launch)
-# printf '\n' | gnome-keyring-daemon -r --unlock --components=secrets
-
-# Fails with...
-# bash: /usr/bin/gnome-keyring-daemon: Operation not permitted
-
-# TBC automatically unlock the Gnome keyring at log on?
-
-# Is this required/correct?
-# RUN echo "auth optional pam_gnome_keyring.so" >> /etc/pam.d/login \
-#     && echo "session optional pam_gnome_keyring.so auto_start" >> /etc/pam.d/sshd
-
-# Update ~/.bashrc?
-# if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
-#   exec dbus-run-session -- $SHELL
-# fi

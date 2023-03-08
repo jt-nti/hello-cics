@@ -25,6 +25,12 @@
 		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
 	},
 
+	// IPC_LOCK is required to run gnome-keyring-daemon. See:
+	// https://stackoverflow.com/questions/75672304/why-does-gnome-keyring-daemon-fail-with-operation-not-permitted-in-a-dev-conta
+	"capAdd": [
+		"IPC_LOCK"
+	],
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
 

@@ -21,3 +21,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [Optional] Uncomment this line to install global node packages.
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g @zowe/cli@zowe-v2-lts && zowe plugins install @zowe/cics-for-zowe-cli@zowe-v2-lts && zowe plugins install @ibm/rse-api-for-zowe-cli@3.0.1 2>&1" ; fi
+
+# Unlock the Gnome keyring automatically. See:
+# https://docs.zowe.org/stable/user-guide/cli-configure-scs-on-headless-linux-os/#unlocking-the-keyring-automatically
+COPY zowe-bashrc.sh /tmp/
+RUN cat /tmp/zowe-bashrc.sh >> /home/vscode/.bashrc && rm -f /tmp/zowe-bashrc.sh
+# TODO in theory the user might not be vscode

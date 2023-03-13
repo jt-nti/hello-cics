@@ -20,4 +20,4 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends libsecret-1-0 gnome-keyring libpam-gnome-keyring dbus-x11
 
 # [Optional] Uncomment this line to install global node packages.
-RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g @zowe/cli@zowe-v2-lts && zowe plugins install @zowe/cics-for-zowe-cli@zowe-v2-lts && zowe plugins install @ibm/rse-api-for-zowe-cli@3.0.1 2>&1" ; fi
+RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g @zowe/cli@zowe-v2-lts && zowe plugins install @zowe/cics-for-zowe-cli@zowe-v2-lts && zowe plugins install @ibm/rse-api-for-zowe-cli@3.0.1 && zowe plugins install zowe-cli-cics-deploy-plugin@1.1.0 2>&1" ; fi

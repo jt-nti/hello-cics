@@ -19,3 +19,9 @@ Edit the config file as required, either using the Zowe Explorer, or with the `z
 ```shell
 zowe config set "profiles.base.properties.rejectUnauthorized" "false" --global-config
 ```
+
+# CICS Program
+
+Attempting to create a very basic CICS program using the `@CICSProgram` annotation!
+
+Created a new gradle project using `gradle init --type basic` (no way to bootstrap an WLP EAR/CICS project?)

@@ -9,3 +9,6 @@ build
 
 # Ignore bin directory
 bin
+
+# Ignore log files
+*.log

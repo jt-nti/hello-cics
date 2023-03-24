@@ -18,8 +18,12 @@
 	},
 
 	// TODO create a Zowe feature instead of using a Dockerfile? https://github.com/devcontainers/features
-	// "features": {
-	// },
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {
+			"installTools": true,
+			"version": "os-provided"
+		}
+	},
 
 	"containerEnv": {
 		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
@@ -33,6 +37,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
+	"postCreateCommand": "pip3 install ebcdic tnz",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

@@ -23,17 +23,17 @@ cicsBundle {
     build {
         defaultJVMServer = project.cicsJVM
     }
-    // deploy {
+    deploy {
         // cicsplex = 'MYPLEX'
         // region   = 'MYREGION'
-        // bunddef  = 'MYBUN'
-        // csdgroup = 'MYGROUP'
-        // url      = 'myserver.site.domain.com:1234'
-        // username = project.cicsUser    // Define cicsUser in gradle.properties file
-        // password = project.cicsPass   // Define cicsPass in gradle.properties file
+        bunddef  = project.cicsBundle
+        csdgroup = project.cicsGroup
+        url      = project.cicsUrl
+        username = project.cicsUser
+        password = project.cicsPass // Define cicsPass using env var ORG_GRADLE_PROJECT_cicsPass=***
         // Caution: uncomment the line below to disable TLS/SSL checking for certificates
-        //insecure = true
-    // }
+        insecure = true
+    }
 }
 
 dependencies {

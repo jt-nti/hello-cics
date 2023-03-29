@@ -30,20 +30,11 @@ See:
 - https://github.com/IBM/cics-bundle-gradle/tree/main/samples/gradle-war-sample
 - https://github.com/cicsdev/cics-java-liberty-link
 
-## Deploying the CICS program (TBC)
+## Configuring CICS to provide a dev environment (TBC)
 
-Gradle build, ftp CICS bundle to USS, and unzip to a suitable bundle directory using `jar -xvf <bundle>.zip`
+Some CICS stuff... here be dragons...
 
-For example, using `zowe`
-
-```shell
-./gradlew build
-zowe ssh issue cmd "rm -Rf ~/cicsBundle && mkdir -p ~/cicsBundle"
-zowe zftp upload ftu ./build/distributions/hello-cics-1.0.0.zip "<bundle_dir>/hello-cics-1.0.0.zip" --binary
-zowe ssh issue cmd "cd ~/cicsBundle && jar -xvf hello-cics-1.0.0.zip && rm hello-cics-1.0.0.zip"
-```
-
-Then some CICS stuff... here be dragons...
+TODO: script somehow- using DFHCSDUP? E.g. [CSDUPDAT.jclsamp](https://github.com/WASdev/sample.wola/blob/7048683bf358797fcbd08cf15ac118987eb12324/CSDUPDAT.jclsamp)
 
 Need a JVM server
 
@@ -53,7 +44,7 @@ CEDA INSTALL GROUP(WLPGROUP)
 CEMT INQUIRE JVMSERVER(WLPFTW)
 ```
 
-TODO need JVM profile, and `server.xml` (somewhere under the JVM work directory) needs to include the `cicsts:link-1.0` feature, e.g.
+TODO need JVM profile, and `<work_dir>/WLPFTW/wlp/usr/servers/defaultServer/server.xml` needs to include the `cicsts:link-1.0` feature, e.g.
 
 ```
 	<featureManager>
@@ -74,8 +65,14 @@ CEDA DEFINE BUNDLE
 Bundle       ==> HELLOB
 Group        ==> BGROUP
 ...
-BUndledir    ==> <bundle_dir>
+BUndledir    ==> <bundle_deploy_root>/<bundle_id>_<bundle_version>
 ```
+
+where,
+  - `<bundle_deploy_root>` was specified by `-Dcom.ibm.cics.jvmserver.cmci.bundles.dir` in `EYUSMSSJ.jvmprofile`, and
+  - `<bundle_id>` is the gradle `rootProject.name`
+
+e.g. `/u/cicsdev/cmciBundles/hello-cics_1.0.0`
 
 ```
 CEDA INSTALL GROUP(BGROUP)
@@ -113,3 +110,24 @@ Run the transaction!!!
 ```
 HOLA
 ```
+
+## Deploying the CICS bundle (TBC)
+
+Note: a CICS bundle is **not** the same thing as an OSGi bundle!
+
+Gradle build, ftp CICS bundle to USS, and unzip to a suitable bundle directory using `jar -xvf <bundle>.zip`
+
+For example, using `zowe`
+
+```shell
+./gradlew build
+zowe ssh issue cmd "rm -Rf ~/cicsBundle && mkdir -p ~/cicsBundle"
+zowe zftp upload ftu ./build/distributions/hello-cics-1.0.0.zip "<bundle_dir>/hello-cics-1.0.0.zip" --binary
+zowe ssh issue cmd "cd ~/cicsBundle && jar -xvf hello-cics-1.0.0.zip && rm hello-cics-1.0.0.zip"
+```
+
+Alternatively, use `./gradlew deployCICSBundle`
+
+This requires CMCI to be working and the 'managedcicsbundles' endpoint to be enabled with the `-Dcom.ibm.cics.jvmserver.cmci.bundles.dir` parameter. See [Configuring the CMCI JVM server for the CICS bundle deployment API](https://www.ibm.com/docs/en/cics-ts/6.1?topic=suc-configuring-cmci-jvm-server-cics-bundle-deployment-api)
+
+Scripting with Zowe seems quite nice since credentials are stored securely, and the bundle deployement API still requires the bundle to have been defined up front anyway. The bundle deployment API does "just work" when it works though.

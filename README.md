@@ -79,28 +79,18 @@ CEDA INSTALL GROUP(BGROUP)
 CEMT INQUIRE BUNDLE(HELLOB)
 ```
 
-Note: installing the bundle should cause a program matching the annotation to get created automatically.
+Installing the bundle should cause a program matching the `@CICSProgram` annotation to get created automatically due to the `cicsts:link-1.0` feature, which you can check with
 
 ```
 CEMT INQUIRE PROGRAM(HELLODFH)
 ```
 
-Define the transaction
+TODO: would it be better just to include a program in the bundle to avoid having to add the `cicsts:link-1.0` feature?
+
+The bundle also includes an `LO1` transaction which uses the program, which you can check with
 
 ```
-CEDA DEFINE TRANSACTION
-```
-
-```
-TRANSaction  ==> HOLA  
-Group        ==> TGROUP
-DEScription  ==>       
-PROGram      ==> HELLODFH 
-```
-
-```
-CEDA INSTALL GROUP(TGROUP)
-CEMT INQUIRE TRANSACTION(HOLA)
+CEMT INQUIRE TRANSACTION(LO1)
 ```
 
 TODO use the same group for the bundle and transaction definitions, e.g. HELLOGRP?
@@ -108,7 +98,7 @@ TODO use the same group for the bundle and transaction definitions, e.g. HELLOGR
 Run the transaction!!!
 
 ```
-HOLA
+LO1
 ```
 
 ## Deploying the CICS bundle (TBC)

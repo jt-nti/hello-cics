@@ -1,3 +1,4 @@
+export PATH=$PATH:/opt/cics-resource-builder/bin
 
 # Unlock the Gnome keyring automatically. See:
 # https://docs.zowe.org/stable/user-guide/cli-configure-scs-on-headless-linux-os/#unlocking-the-keyring-automatically

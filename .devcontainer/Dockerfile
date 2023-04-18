@@ -22,8 +22,14 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment this line to install global node packages.
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g @zowe/cli@zowe-v2-lts && zowe plugins install @zowe/cics-for-zowe-cli@zowe-v2-lts @zowe/zos-ftp-for-zowe-cli@zowe-v2-lts @ibm/rse-api-for-zowe-cli@3.0.1 2>&1" ; fi
 
-# Unlock the Gnome keyring automatically. See:
-# https://docs.zowe.org/stable/user-guide/cli-configure-scs-on-headless-linux-os/#unlocking-the-keyring-automatically
-COPY zowe-bashrc.sh /tmp/
-RUN cat /tmp/zowe-bashrc.sh >> /home/vscode/.bashrc && rm -f /tmp/zowe-bashrc.sh
-# TODO in theory the user might not be vscode
+# Install CICS Transaction Server resource builder
+RUN curl -sfL "https://public.dhe.ibm.com/ibmdl/export/pub/software/htp/zos/updates/cics-resource-builder-1.0.3.zip" 2>/dev/null -o /tmp/cics-resource-builder-1.0.3.zip \
+    && cd /opt \
+    && jar -xvf /tmp/cics-resource-builder-1.0.3.zip cics-resource-builder \
+    && chmod 755 /opt/cics-resource-builder/bin/zrb \
+    && rm /tmp/cics-resource-builder-1.0.3.zip
+
+# TODO in theory the user might not be vscode?
+COPY cicsdev-bashrc.sh /tmp/
+RUN cat /tmp/cicsdev-bashrc.sh >> /home/vscode/.bashrc \
+    && rm -f /tmp/cicsdev-bashrc.sh

@@ -121,3 +121,22 @@ Alternatively, use `./gradlew deployCICSBundle`
 This requires CMCI to be working and the 'managedcicsbundles' endpoint to be enabled with the `-Dcom.ibm.cics.jvmserver.cmci.bundles.dir` parameter. See [Configuring the CMCI JVM server for the CICS bundle deployment API](https://www.ibm.com/docs/en/cics-ts/6.1?topic=suc-configuring-cmci-jvm-server-cics-bundle-deployment-api)
 
 Scripting with Zowe seems quite nice since credentials are stored securely, and the bundle deployement API still requires the bundle to have been defined up front anyway. The bundle deployment API does "just work" when it works though.
+
+## Using resource builder and DFHCSDUP to configure CICS
+
+Generate the resource definitions schema
+
+```shell
+zrb generate -m src/main/resources/sample.cicsresourcemodel.yaml -o src/main/resources/sample.cicsresourcedefinitions.schema.json
+```
+
+Build the DFHCSDUP commands file
+
+```shell
+zrb build --model src/main/resources/sample.cicsresourcemodel.yaml --resources src/main/resources/sample.cicsresourcedefinitions.yaml --output src/main/resources/DFHCSD.txt
+```
+
+TODO:
+- there's probably a better place to generate the schema and DFHCSD.txt files
+- use yq to fix the bundledir
+- run the DFHCSDUP commands!

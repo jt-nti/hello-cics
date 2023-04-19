@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=sample.cicsresourcedefinitions.schema.json
+
+resourceDefinitions:
+  - sample-bundle:
+      name: HELLO
+      group: SAMPLE
+      bundledir: <bundle_deploy_root>/hello-cics_1.0.0

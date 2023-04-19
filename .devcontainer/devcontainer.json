@@ -49,7 +49,8 @@
 				"Zowe.cics-extension-for-zowe",
 				"IBM.zopeneditor",
 				"vscjava.vscode-java-pack",
-				"vscjava.vscode-gradle"
+				"vscjava.vscode-gradle",
+				"redhat.vscode-yaml"
 			]
 		}
 	},

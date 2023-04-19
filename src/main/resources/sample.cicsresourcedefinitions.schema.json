@@ -1,0 +1,57 @@
+{
+  "copyright" : [ "*----------------------------------------------------------------*", "*  Copyright IBM Corp. 2021, 2022                                *", "*----------------------------------------------------------------*" ],
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "http://www.ibm.com/xmlns/prod/cics/resourcedefinitions",
+  "title" : "Sample CICS Application",
+  "resourceDefinitionsVersion" : "cicsts-6.1.0",
+  "description" : "Schema that describes the structure of a CICS resource definition document.",
+  "type" : "object",
+  "properties" : {
+    "resourceDefinitions" : {
+      "$ref" : "#/definitions/resourceTypes"
+    }
+  },
+  "required" : [ "resourceDefinitions" ],
+  "additionalProperties" : false,
+  "definitions" : {
+    "resourceTypes" : {
+      "description" : "Resources to be defined are list items after the resourceDefintions mapping.",
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "sample-bundle" : {
+            "$ref" : "#/definitions/sample-bundleUDTDefinition"
+          }
+        },
+        "additionalProperties" : false
+      }
+    },
+    "sample-bundleUDTDefinition" : {
+      "description" : "CICS BUNDLE resource type.",
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "description" : "BUNDLE resource names are a string between 1 and 8 characters from the character set [A-Za-z0-9$@#./-_%&?!:|\"=¬,;<>].",
+          "type" : "string",
+          "pattern" : "^[A-Za-z0-9$@#./\\-_%&?!:|\"=¬,;<>]+$",
+          "maxLength" : 8
+        },
+        "group" : {
+          "description" : "RDO group names are strings between 1 and 8 characters from the character set [A-Z0-9$@#].",
+          "type" : "string",
+          "pattern" : "^[A-Z0-9$@#]+$",
+          "maxLength" : 8
+        },
+        "bundledir" : {
+          "description" : "Specify a string of between 1 and 255 characters from the character set [A-Za-z0-9$@#./-_%&?!:|\"=¬,;<>].",
+          "type" : "string",
+          "pattern" : "^[A-Za-z0-9$@#./\\-_%&?!:|\"=¬,;<>]+$",
+          "maxLength" : 255
+        }
+      },
+      "additionalProperties" : false,
+      "required" : [ "bundledir", "group", "name" ]
+    }
+  }
+}

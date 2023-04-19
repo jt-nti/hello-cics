@@ -1,0 +1,17 @@
+* ---                                                                           
+* createTime: 2023-04-19T17:50:05.086555Z                                       
+* createTimeFileEncoding: UTF-8                                                 
+* application:                                                                  
+*   name: Sample CICS Application                                               
+*   source: ""                                                                  
+* resourceModel:                                                                
+*   source: |-                                                                  
+*     /workspaces/hello-cics/src/main/resources/sample.c                        
+*     icsresourcemodel.yaml                                                     
+*   target: cicsts-6.1.0                                                        
+* resourceDefinitions:                                                          
+*   source: |-                                                                  
+*     /workspaces/hello-cics/src/main/resources/sample.c                        
+*     icsresourcedefinitions.yaml                                               
+DEFINE BUNDLE(HELLO) GROUP(SAMPLE)                                              
+       BUNDLEDIR(<bundle_deploy_root>/hello-cics_1.0.0)                         

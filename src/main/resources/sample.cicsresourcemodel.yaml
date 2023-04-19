@@ -1,0 +1,25 @@
+schemaVersion: resourceModel/1.0
+
+application:
+  name: Sample CICS Application
+
+resourceModel:
+  target: cicsts-6.1.0
+  defines:
+    - id: sample-bundle
+      type: bundle
+      attributes:
+        public:
+          name:
+            required: true
+          group:
+            required: true
+          bundledir:
+            required: true
+    # TODO add JVM server?
+    # - id: sample-jvmserver
+    #   type: jvmserver
+    #   attributes:
+    #     public:
+    #       name:
+    #         required: true

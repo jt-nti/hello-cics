@@ -139,4 +139,20 @@ zrb build --model src/main/resources/sample.cicsresourcemodel.yaml --resources s
 TODO:
 - there's probably a better place to generate the schema and DFHCSD.txt files
 - use yq to fix the bundledir
-- run the DFHCSDUP commands!
+
+The resulting commands file can be used when invoking DFHCSDUP as a batch program. See:
+https://www.ibm.com/docs/en/cics-ts/6.1?topic=dfhcsdup-sample-job-invoking-as-batch-program
+
+First upload the DFHCSDUP commands file to a suitable data set.
+For example, to create a new partitioned data set and upload the `DFHCSD.txt` file using Zowe...
+
+```shell
+zowe zos-files create data-set-partitioned NEW.DFHCSD.DATASET
+zowe zos-files upload file-to-data-set "DFHCSD.txt" "NEW.DFHCSD.DATASET(SAMPLE)"
+```
+
+Then refer to your data set in the DFHCSDUP JCL, e.g.
+
+```
+//SYSIN    DD DISP=SHR,DSN=NEW.DFHCSD.DATASET(SAMPLE)
+```

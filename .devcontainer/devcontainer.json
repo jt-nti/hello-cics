@@ -50,7 +50,8 @@
 				"IBM.zopeneditor",
 				"vscjava.vscode-java-pack",
 				"vscjava.vscode-gradle",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"humao.rest-client"
 			]
 		}
 	},

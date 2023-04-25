@@ -1,0 +1,29 @@
+// HTTP request file for use with REST Client for Visual Studio Code
+// See https://github.com/Huachao/vscode-restclient
+// 
+// Add the following Environment Variables in the VS Code REST Client settings:
+// - cmciHostname
+// - cmciPort
+// - cmciBundleDir
+// - cicsRegion
+@baseUrl = http://{{cmciHostname}}:{{cmciPort}}
+@apiUrl = {{baseUrl}}/CICSSystemManagement
+
+### Check the CMCI server is working
+
+GET {{apiUrl}}/CICSTask/ HTTP/1.1
+
+### Create a CICS bundle definition
+# @prompt username
+# @prompt password
+
+POST {{apiUrl}}/CICSDefinitionBundle/{{cicsRegion}}
+Authorization: Basic {{username}} {{password}}
+content-type: application/xml
+
+<request>
+    <create>
+        <parameter name="CSD"/>
+        <attributes name="HELLO" bundledir="{{cmciBundleDir}}/hello-cics_1.0.0" csdgroup="SAMPLE"/>
+    </create>
+</request>

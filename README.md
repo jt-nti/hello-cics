@@ -162,3 +162,15 @@ Then refer to your data set in the DFHCSDUP JCL, e.g.
 //SYSPRINT DD SYSOUT=*
 //SYSIN    DD DISP=SHR,DSN=NEW.DFHCSD.DATASET(SAMPLE)
 ```
+
+## Using CMCI and a REST client to configure CICS!
+
+The [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) for VS Code works quite well (see the [cmci.http file](./cmci.http) for example), or just use cURL...
+
+```shell
+curl --request POST \
+  --url http://cmci.example.org:1490/CICSSystemManagement/CICSDefinitionBundle/<cics_region> \
+  --header 'authorization: Basic <encoded_username_password>' \
+  --header 'content-type: application/xml' \
+  --data '<request><create><parameter name="CSD"/><attributes name="HELLO" bundledir="/u/ibmuser/cmciBundles/hello-cics_1.0.0" csdgroup="SAMPLE"/></create></request>'
+```

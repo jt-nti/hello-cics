@@ -1,29 +1,11 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/java
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
 	"name": "cicsdev",
+	// More info: https://containers.dev/guide/dockerfile
 	"build": {
-		// Path is relataive to the devcontainer.json file.
-		"dockerfile": "Dockerfile",
-		"args": {
-			// Update the VARIANT arg to pick a Java version: 11, 17
-			// Append -bullseye or -buster to pin to an OS version.
-			// Use the -bullseye variants on local arm64/Apple Silicon.
-			"VARIANT": "11-bullseye",
-			// Options
-			"INSTALL_MAVEN": "true",
-			"INSTALL_GRADLE": "true",
-			"NODE_VERSION": "lts/*"
-		}
-	},
-
-	// TODO create a Zowe feature instead of using a Dockerfile? https://github.com/devcontainers/features
-	// "features": {
-	// },
-
-	"containerEnv": {
-		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
-	},
+        "dockerfile": "Dockerfile"
+    },
 
 	// IPC_LOCK is required to run gnome-keyring-daemon. See:
 	// https://stackoverflow.com/questions/75672304/why-does-gnome-keyring-daemon-fail-with-operation-not-permitted-in-a-dev-conta
@@ -31,11 +13,30 @@
 		"IPC_LOCK"
 	],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"installGradle": true,
+			"installMaven": true,
+			"version": "17",
+			"jdkDistro": "sem",
+			"gradleVersion": "latest",
+			"mavenVersion": "latest"
+		},
+		"ghcr.io/devcontainers/features/node:1": {
+			"nodeGypDependencies": true,
+			"installYarnUsingApt": true,
+			"version": "lts",
+			"pnpmVersion": "latest",
+			"nvmVersion": "latest"
+		}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -56,6 +57,9 @@
 		}
 	},
 
-	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root",
+
+	// Use ENTRYPOINT and CMD defined in Dockefile. More info: https://code.visualstudio.com/remote/advancedcontainers/start-processes
+	"overrideCommand": false
 }
